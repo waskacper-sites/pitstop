@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pit Stop Barber Shop | Barber Brzesko — Leśna 1</title>
+  <meta name="description" content="Pit Stop Barber Shop w Brzesku (Leśna 1). Strzyżenie, broda, combo i pigmentacja. Sprawdź cennik i umów wizytę online na Booksy.">
+
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="shortcut icon" type="image/png" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://pitstopbarbershop360.booksy.com/k">
+  <meta property="og:site_name" content="Pit Stop Barber Shop">
+  <meta property="og:title" content="Pit Stop Barber Shop | Barber Brzesko">
+  <meta property="og:description" content="Strzyżenie, broda, combo i pigmentacja. Leśna 1, Brzesko — rezerwacja online na Booksy.">
+  <meta property="og:image" content="logo.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:alt" content="Pit Stop Barber Shop logo">
+  <meta property="og:locale" content="pl_PL">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Pit Stop Barber Shop | Barber Brzesko">
+  <meta name="twitter:description" content="Barber w Brzesku, Leśna 1. Cennik i rezerwacja online na Booksy.">
+  <meta name="twitter:image" content="logo.png">
+
+  <meta name="theme-color" content="#0A0A0A">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="antialiased selection:bg-black selection:text-white min-h-screen">
+
+  <!-- NAVBAR (przezroczysty na górze, biały po scrollu + magnetyczny pasek pod sekcją) -->
+  <header id="navbar" class="nav-top fixed top-0 inset-x-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-3">
+      <a href="#" class="logo-wrap" aria-label="Pit Stop Barber Shop">
+        <img class="logo-w" src="logo-light.png" alt="Pit Stop Barber Shop">
+        <img class="logo-b" src="logo-dark.png" alt="">
+      </a>
+
+      <nav id="desktop-nav" class="hidden md:flex items-center gap-8 text-xs font-semibold uppercase tracking-widest relative">
+        <a href="#about" class="nav-link" data-section="about">O Studiu</a>
+        <a href="#portfolio" class="nav-link" data-section="portfolio">Portfolio</a>
+        <a href="#cennik" class="nav-link" data-section="cennik">Cennik</a>
+        <a href="#testimonials" class="nav-link" data-section="testimonials">Opinie</a>
+        <a href="#faq" class="nav-link" data-section="faq">FAQ</a>
+        <span id="nav-magnet" aria-hidden="true"></span>
+      </nav>
+
+      <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="nav-btn btn-solid hidden md:inline-block px-5 py-2.5 text-xs">Umów wizytę</a>
+
+      <div class="flex items-center gap-2 md:hidden">
+        <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="nav-btn btn-solid px-3.5 py-2 text-[11px] leading-none">Umów</a>
+        <button type="button" id="drawer-open-btn" class="burger w-10 h-10 border flex items-center justify-center" aria-label="Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE DRAWER -->
+  <div id="mobile-drawer" class="fixed inset-0 z-50 bg-black/60 flex justify-end">
+    <div class="w-72 max-w-[85vw] h-full bg-white p-6 flex flex-col justify-between border-l border-black">
+      <div>
+        <div class="flex items-center justify-between pb-5 border-b border-black">
+          <img src="logo-dark.png" alt="Pit Stop Barber Shop" class="h-6 w-auto">
+          <button type="button" id="drawer-close-btn" class="w-10 h-10 border border-black flex items-center justify-center" aria-label="Zamknij menu"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <nav class="mt-5 flex flex-col text-sm font-semibold uppercase tracking-widest">
+          <a href="#about" data-section="about" class="drawer-link py-3.5 border-b border-neutral-200">O Studiu</a>
+          <a href="#portfolio" data-section="portfolio" class="drawer-link py-3.5 border-b border-neutral-200">Portfolio</a>
+          <a href="#cennik" data-section="cennik" class="drawer-link py-3.5 border-b border-neutral-200">Cennik</a>
+          <a href="#testimonials" data-section="testimonials" class="drawer-link py-3.5 border-b border-neutral-200">Opinie</a>
+          <a href="#faq" data-section="faq" class="drawer-link py-3.5 border-b border-neutral-200">FAQ</a>
+        </nav>
+      </div>
+
+      <div class="space-y-4">
+        <div class="text-xs text-neutral-500 space-y-1 border-t border-neutral-200 pt-4">
+          <div class="font-semibold text-black">Leśna 1, 32-800 Brzesko</div>
+          <div>Wt–Sob • Rezerwacja online</div>
+        </div>
+        <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="btn-solid block w-full py-3.5 text-center text-xs">Umów wizytę na Booksy</a>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
+        <div class="max-w-3xl fade-up">
+          <div class="flex items-center gap-2.5 sm:gap-3 mb-5 sm:mb-6">
+            <img src="pole.gif" alt="" class="pole-gif">
+            <span class="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-neutral-200">Barber Shop • Brzesko</span>
+          </div>
+          <h1 class="font-display text-[2.85rem] sm:text-7xl lg:text-8xl font-bold leading-[0.98]">
+            Precyzja.<br>Styl.<br>Charakter.
+          </h1>
+          <div class="mt-7 sm:mt-9 flex flex-col sm:flex-row gap-3">
+            <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="btn-light px-8 py-3.5 text-sm text-center">Umów wizytę</a>
+            <a href="#cennik" class="btn-ghost-light px-8 py-3.5 text-sm text-center">Cennik</a>
+          </div>
+        </div>
+
+        <div class="mt-10 sm:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 stagger-group">
+          <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="hero-tile p-3.5 sm:p-5 overflow-hidden block fade-up">
+            <div class="text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-300">Rezerwacja</div>
+            <div class="font-display text-xl sm:text-3xl lg:text-4xl font-bold mt-0.5 sm:mt-1">Booksy</div>
+          </a>
+          <a href="#about" class="hero-tile p-3.5 sm:p-5 overflow-hidden block fade-up">
+            <div class="text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-300">Adres</div>
+            <div class="font-display text-xl sm:text-3xl lg:text-4xl font-bold mt-0.5 sm:mt-1">Leśna 1</div>
+          </a>
+          <a href="#cennik" class="hero-tile p-3.5 sm:p-5 overflow-hidden block fade-up">
+            <div class="text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-300">Cennik</div>
+            <div class="font-display text-xl sm:text-3xl lg:text-4xl font-bold mt-0.5 sm:mt-1">od 50 zł</div>
+          </a>
+          <a href="#about" class="hero-tile p-3.5 sm:p-5 overflow-hidden block fade-up">
+            <div class="text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-300">Otwarte</div>
+            <div class="font-display text-xl sm:text-3xl lg:text-4xl font-bold mt-0.5 sm:mt-1">Wt – Sob</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- O STUDIU -->
+    <section id="about" class="py-14 sm:py-20 border-t border-black">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-12 gap-7 lg:gap-10 items-stretch">
+        <div class="lg:col-span-7 flex flex-col justify-between fade-up">
+          <div>
+            <div class="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+              <img src="pole.gif" alt="" class="pole-gif">
+              <span class="text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-neutral-500">O Studiu</span>
+            </div>
+            <h2 class="font-display text-3xl sm:text-5xl font-bold leading-tight">Barber w Brzesku.</h2>
+            <p class="mt-3 sm:mt-4 text-sm sm:text-base text-neutral-700 max-w-md">Strzyżenie, broda, pigmentacja. Prosto i dokładnie.</p>
+          </div>
+
+          <div class="mt-6 sm:mt-8 grid sm:grid-cols-2 gap-3.5 sm:gap-4 stagger-group">
+            <div class="frame p-4 sm:p-5 fade-up">
+              <div class="text-[11px] uppercase tracking-widest text-neutral-500">Adres</div>
+              <div class="font-display text-xl sm:text-2xl font-bold mt-1">Leśna 1</div>
+              <div class="text-sm text-neutral-600">32-800 Brzesko</div>
+            </div>
+            <a href="https://www.instagram.com/pitstopbarber_shop/" target="_blank" rel="noopener noreferrer" class="frame p-4 sm:p-5 flex items-center justify-between gap-3 fade-up">
+              <div class="min-w-0">
+                <div class="text-[11px] uppercase tracking-widest text-neutral-500">Instagram</div>
+                <div class="font-display text-xl sm:text-2xl font-bold mt-1 truncate">@pitstopbarber_shop</div>
+              </div>
+              <i class="fa-brands fa-instagram text-lg shrink-0"></i>
+            </a>
+            <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="frame p-4 sm:p-5 sm:col-span-2 flex items-center justify-between gap-4 fade-up">
+              <div>
+                <div class="text-[11px] uppercase tracking-widest text-neutral-500">Rezerwacja online 24/7</div>
+                <div class="font-display text-xl sm:text-2xl font-bold mt-1">Umów termin na Booksy</div>
+              </div>
+              <span class="w-10 h-10 border border-black flex items-center justify-center shrink-0 bg-black text-white">
+                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+              </span>
+            </a>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 fade-up">
+          <div class="frame h-full flex flex-col justify-between">
+            <div>
+              <div class="bg-black text-white px-5 sm:px-6 py-3.5 sm:py-4 font-display text-base sm:text-lg tracking-widest">Godziny otwarcia</div>
+              <ul class="divide-y divide-neutral-300 text-sm">
+                <li class="flex justify-between px-5 sm:px-6 py-3 text-neutral-400"><span>Poniedziałek</span><span>Zamknięte</span></li>
+                <li class="flex justify-between px-5 sm:px-6 py-3"><span>Wtorek</span><span class="font-semibold">10:00 – 18:00</span></li>
+                <li class="flex justify-between px-5 sm:px-6 py-3"><span>Środa</span><span class="font-semibold">10:00 – 20:00</span></li>
+                <li class="flex justify-between px-5 sm:px-6 py-3"><span>Czwartek</span><span class="font-semibold">10:00 – 20:00</span></li>
+                <li class="flex justify-between px-5 sm:px-6 py-3"><span>Piątek</span><span class="font-semibold">10:00 – 18:00</span></li>
+                <li class="flex justify-between px-5 sm:px-6 py-3"><span>Sobota</span><span class="font-semibold">09:00 – 14:00</span></li>
+                <li class="flex justify-between px-5 sm:px-6 py-3 text-neutral-400"><span>Niedziela</span><span>Zamknięte</span></li>
+              </ul>
+            </div>
+            <div class="pole-stripe pole-stripe-thick"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section id="portfolio" class="py-14 sm:py-20 border-t border-black">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-7 sm:mb-10 flex items-end justify-between gap-4 fade-up">
+          <div>
+            <div class="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+              <img src="pole.gif" alt="" class="pole-gif">
+              <span class="text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-neutral-500">Portfolio</span>
+            </div>
+            <h2 class="font-display text-3xl sm:text-5xl font-bold">Nasze cięcia.</h2>
+          </div>
+          <span class="sm:hidden text-[11px] uppercase tracking-widest text-neutral-500 pb-1 flex items-center gap-1.5 shrink-0">
+            Przesuń <i class="fa-solid fa-arrow-right-long"></i>
+          </span>
+        </div>
+
+        <div class="portfolio-track flex sm:grid sm:grid-cols-3 gap-4 sm:gap-6 overflow-x-auto sm:overflow-visible snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 pb-2 sm:pb-0 stagger-group">
+          <div class="cut-card w-[78vw] max-w-[300px] sm:w-auto sm:max-w-none shrink-0 snap-center aspect-[3/4] fade-up" data-index="0">
+            <img src="cut-1.png" alt="Low fade" class="w-full h-full object-cover">
+            <div class="cut-caption absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/85 to-transparent text-white">
+              <div class="font-display text-xl font-bold">Low fade</div>
+            </div>
+          </div>
+          <div class="cut-card w-[78vw] max-w-[300px] sm:w-auto sm:max-w-none shrink-0 snap-center aspect-[3/4] fade-up" data-index="1">
+            <img src="cut-2.jpg" alt="Modern mullet" class="w-full h-full object-cover">
+            <div class="cut-caption absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/85 to-transparent text-white">
+              <div class="font-display text-xl font-bold">Modern mullet</div>
+            </div>
+          </div>
+          <div class="cut-card w-[78vw] max-w-[300px] sm:w-auto sm:max-w-none shrink-0 snap-center aspect-[3/4] fade-up" data-index="2">
+            <img src="cut-3.png" alt="Naturalne loki" class="w-full h-full object-cover">
+            <div class="cut-caption absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/85 to-transparent text-white">
+              <div class="font-display text-xl font-bold">Naturalne loki</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 sm:mt-8 fade-up">
+          <a href="https://www.instagram.com/pitstopbarber_shop/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-semibold underline underline-offset-4 hover:text-neutral-600">
+            <i class="fa-brands fa-instagram"></i><span>Więcej na Instagramie</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CENNIK -->
+    <section id="cennik" class="py-14 sm:py-20 border-t border-black">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-7 sm:mb-10 fade-up">
+          <div class="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+            <img src="pole.gif" alt="" class="pole-gif">
+            <span class="text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-neutral-500">Cennik</span>
+          </div>
+          <h2 class="font-display text-3xl sm:text-5xl font-bold">Usługi i ceny.</h2>
+        </div>
+
+        <div class="frame fade-up">
+          <div class="pole-stripe pole-stripe-thick"></div>
+          <div>
+            <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="price-row"><span class="font-semibold text-[15px] sm:text-base">Strzyżenie włosów</span><span class="dur text-xs text-neutral-500">50 min</span><span class="price-val font-display text-xl sm:text-2xl font-bold">80 zł</span></a>
+            <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="price-row"><span class="font-semibold text-[15px] sm:text-base">Combo</span><span class="dur text-xs text-neutral-500">1 g 20 min</span><span class="price-val font-display text-xl sm:text-2xl font-bold">130 zł</span></a>
+            <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="price-row"><span class="font-semibold text-[15px] sm:text-base">Combo + pigmentacja</span><span class="dur text-xs text-neutral-500">1 g 45 min</span><span class="price-val font-display text-xl sm:text-2xl font-bold">160 zł</span></a>
+            <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="price-row"><span class="font-semibold text-[15px] sm:text-base">Strzyżenie brody</span><span class="dur text-xs text-neutral-500">30 min</span><span class="price-val font-display text-xl sm:text-2xl font-bold">50 zł</span></a>
+            <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="price-row"><span class="font-semibold text-[15px] sm:text-base">Broda + pigmentacja</span><span class="dur text-xs text-neutral-500">50 min</span><span class="price-val font-display text-xl sm:text-2xl font-bold">80 zł</span></a>
+            <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="price-row"><span class="font-semibold text-[15px] sm:text-base">Długie włosy</span><span class="dur text-xs text-neutral-500">1 g</span><span class="price-val font-display text-xl sm:text-2xl font-bold">90 zł</span></a>
+            <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="price-row"><span class="font-semibold text-[15px] sm:text-base">Buzz cut</span><span class="dur text-xs text-neutral-500">40 min</span><span class="price-val font-display text-xl sm:text-2xl font-bold">70 zł</span></a>
+            <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="price-row"><span class="font-semibold text-[15px] sm:text-base">Dziecko do 13 lat</span><span class="dur text-xs text-neutral-500">30 min</span><span class="price-val font-display text-xl sm:text-2xl font-bold">60 zł</span></a>
+          </div>
+        </div>
+
+        <div class="mt-6 sm:mt-8 flex justify-center fade-up">
+          <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="btn-solid w-full sm:w-auto px-10 py-3.5 text-sm text-center">Umów wizytę na Booksy</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- OPINIE -->
+    <section id="testimonials" class="py-14 sm:py-20 border-t border-black">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-7 sm:mb-10 fade-up">
+          <div class="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+            <img src="pole.gif" alt="" class="pole-gif">
+            <span class="text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-neutral-500">Opinie z Booksy</span>
+          </div>
+          <h2 class="font-display text-3xl sm:text-5xl font-bold">Mówią klienci.</h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-4 sm:gap-6 stagger-group">
+          <div class="frame review-card p-5 sm:p-7 flex flex-col justify-between fade-up">
+            <div>
+              <div class="flex text-black text-xs gap-1 mb-3.5 sm:mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+              <p class="text-sm sm:text-base text-neutral-800 leading-relaxed">„Idealnie strzyżenie, Pani Gabriela pełen profesjonalizm 😎”</p>
+            </div>
+            <div class="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-neutral-300 text-xs">
+              <div class="font-bold text-sm">Maciej</div>
+              <div class="text-neutral-500 mt-0.5">Potwierdzony klient • 17 wrz 2026</div>
+            </div>
+          </div>
+          <div class="frame review-card p-5 sm:p-7 flex flex-col justify-between fade-up">
+            <div>
+              <div class="flex text-black text-xs gap-1 mb-3.5 sm:mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+              <p class="text-sm sm:text-base text-neutral-800 leading-relaxed">„Serdecznie polecam ten salon. Bardzo miła obsługa jak również wykonane cięcie.”</p>
+            </div>
+            <div class="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-neutral-300 text-xs">
+              <div class="font-bold text-sm">Kornel</div>
+              <div class="text-neutral-500 mt-0.5">Potwierdzony klient • 16 wrz 2026</div>
+            </div>
+          </div>
+          <div class="frame review-card p-5 sm:p-7 flex flex-col justify-between fade-up">
+            <div>
+              <div class="flex text-black text-xs gap-1 mb-3.5 sm:mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+              <p class="text-sm sm:text-base text-neutral-800 leading-relaxed">„Fantastyczna i miła obsługa”</p>
+            </div>
+            <div class="mt-5 sm:mt-6 pt-3.5 sm:pt-4 border-t border-neutral-300 text-xs">
+              <div class="font-bold text-sm">Jakub</div>
+              <div class="text-neutral-500 mt-0.5">Potwierdzony klient • 10 wrz 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="py-14 sm:py-20 border-t border-black">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-7 sm:mb-10 fade-up">
+          <div class="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+            <img src="pole.gif" alt="" class="pole-gif">
+            <span class="text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-neutral-500">FAQ</span>
+          </div>
+          <h2 class="font-display text-3xl sm:text-5xl font-bold">Pytania.</h2>
+        </div>
+        <div class="space-y-3.5 sm:space-y-4 stagger-group">
+          <div class="faq-item fade-up">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span class="text-[15px] sm:text-base leading-snug">Jak się umówić?</span>
+              <span class="faq-icon-box"><i class="faq-icon fa-solid fa-plus text-xs"></i></span>
+            </button>
+            <div class="faq-body">
+              <div class="faq-inner">
+                <div class="faq-content">
+                  Rezerwacja odbywa się online 24/7 przez <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="font-semibold text-black underline underline-offset-4 hover:opacity-70">Booksy</a> — wybierasz usługę, dzień oraz wolną godzinę od ręki.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item fade-up">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span class="text-[15px] sm:text-base leading-snug">Co to Combo?</span>
+              <span class="faq-icon-box"><i class="faq-icon fa-solid fa-plus text-xs"></i></span>
+            </button>
+            <div class="faq-body">
+              <div class="faq-inner">
+                <div class="faq-content">
+                  Strzyżenie włosów oraz pełne opracowanie brody w jednej wizycie (1 godz. 20 min — 130 zł, z pigmentacją 160 zł).
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item fade-up">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span class="text-[15px] sm:text-base leading-snug">Czy strzyżecie dzieci?</span>
+              <span class="faq-icon-box"><i class="faq-icon fa-solid fa-plus text-xs"></i></span>
+            </button>
+            <div class="faq-body">
+              <div class="faq-inner">
+                <div class="faq-content">
+                  Tak, zapraszamy dzieci do 13 roku życia. Koszt wizyty to 60 zł, a czas trwania to około 30 minut.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item fade-up">
+            <button type="button" class="faq-trigger" aria-expanded="false">
+              <span class="text-[15px] sm:text-base leading-snug">Gdzie dokładnie znajduje się salon?</span>
+              <span class="faq-icon-box"><i class="faq-icon fa-solid fa-plus text-xs"></i></span>
+            </button>
+            <div class="faq-body">
+              <div class="faq-inner">
+                <div class="faq-content">
+                  Działamy w Brzesku przy ul. Leśnej 1. Jesteśmy otwarci od wtorku do soboty (w środy i czwartki aż do 20:00).
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#0A0A0A] text-white">
+    <div class="pole-stripe pole-stripe-thick"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 grid md:grid-cols-3 gap-8 sm:gap-10">
+      <div>
+        <div class="logo-wrap logo-static"><img class="logo-w" src="logo-light.png" alt="Pit Stop Barber Shop"></div>
+      </div>
+      <div class="text-sm space-y-2.5">
+        <div class="text-xs uppercase tracking-widest text-neutral-400 mb-3">Kontakt</div>
+        <div class="flex items-center gap-2.5"><i class="fa-solid fa-location-dot w-4"></i><span>Leśna 1, 32-800 Brzesko</span></div>
+        <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 hover:text-neutral-300 transition-colors"><i class="fa-solid fa-calendar-check w-4"></i><span>Rezerwacja Booksy</span></a>
+        <a href="https://www.instagram.com/pitstopbarber_shop/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2.5 hover:text-neutral-300 transition-colors"><i class="fa-brands fa-instagram w-4"></i><span>@pitstopbarber_shop</span></a>
+      </div>
+      <div class="text-sm">
+        <div class="text-xs uppercase tracking-widest text-neutral-400 mb-3">Godziny</div>
+        <ul class="space-y-1.5 text-neutral-300 max-w-xs sm:max-w-none">
+          <li class="flex justify-between"><span>Wt, Pt</span><span>10:00 – 18:00</span></li>
+          <li class="flex justify-between"><span>Śr, Cz</span><span>10:00 – 20:00</span></li>
+          <li class="flex justify-between"><span>Sob</span><span>09:00 – 14:00</span></li>
+          <li class="flex justify-between text-neutral-500"><span>Pn, Nd</span><span>Zamknięte</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/15 py-5 text-center text-xs text-neutral-500">© 2026 Pit Stop Barber Shop</div>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-3 sm:p-4">
+    <div class="lightbox-panel relative max-w-4xl w-full bg-white border border-black flex flex-col md:flex-row">
+      <button type="button" id="lightbox-close" class="absolute top-2.5 right-2.5 sm:top-3 sm:right-3 z-20 w-10 h-10 bg-white border border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors" aria-label="Zamknij"><i class="fa-solid fa-xmark"></i></button>
+      <div id="lightbox-stage" class="md:w-3/5 bg-black relative flex items-center justify-center min-h-[240px] md:min-h-[320px] select-none">
+        <img id="lightbox-img" src="" alt="" class="max-h-[52vh] md:max-h-[75vh] w-auto max-w-full object-contain">
+        <button type="button" id="lightbox-prev" class="absolute left-2.5 sm:left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors" aria-label="Poprzednie zdjęcie"><i class="fa-solid fa-chevron-left text-sm"></i></button>
+        <button type="button" id="lightbox-next" class="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white border border-black flex items-center justify-center hover:bg-black hover:text-white transition-colors" aria-label="Następne zdjęcie"><i class="fa-solid fa-chevron-right text-sm"></i></button>
+      </div>
+      <div class="md:w-2/5 p-4 sm:p-6 flex flex-col justify-between">
+        <div>
+          <span id="lightbox-category" class="text-[11px] uppercase tracking-widest text-neutral-500"></span>
+          <h3 id="lightbox-title" class="font-display text-xl sm:text-2xl font-bold mt-1"></h3>
+          <p id="lightbox-desc" class="text-xs sm:text-sm text-neutral-600 mt-2 sm:mt-3"></p>
+        </div>
+        <div id="lightbox-counter" class="text-xs font-mono text-neutral-500 mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-neutral-300"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOM ALERT -->
+  <div id="custom-alert-modal" class="hidden fixed inset-0 z-[60] bg-black/70 flex items-center justify-center p-4">
+    <div class="bg-white border border-black max-w-sm w-full p-6 text-center">
+      <h4 id="custom-alert-title" class="font-display text-xl font-bold mb-2">Informacja</h4>
+      <p id="custom-alert-msg" class="text-sm text-neutral-600 mb-6"></p>
+      <button type="button" id="custom-alert-ok" class="btn-solid w-full py-2.5 text-xs">OK</button>
+    </div>
+  </div>
+
+  <!-- CUSTOM CONFIRM -->
+  <div id="custom-confirm-modal" class="hidden fixed inset-0 z-[60] bg-black/70 flex items-center justify-center p-4">
+    <div class="bg-white border border-black max-w-sm w-full p-6 text-center">
+      <h4 id="custom-confirm-title" class="font-display text-xl font-bold mb-2">Potwierdzenie</h4>
+      <p id="custom-confirm-msg" class="text-sm text-neutral-600 mb-6"></p>
+      <div class="grid grid-cols-2 gap-2">
+        <button type="button" id="custom-confirm-no" class="btn-outline py-2.5 text-xs">Anuluj</button>
+        <button type="button" id="custom-confirm-yes" class="btn-solid py-2.5 text-xs">Potwierdź</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
