@@ -28,7 +28,7 @@
           el.style.removeProperty('--delay');
         }, 900 + extra);
       });
-    }, { threshold: 0.06, rootMargin: '0px 0px -24px 0px' });
+    }, { threshold: 0.06, rootMargin: '0px 0px -20px 0px' });
 
     els.forEach((el) => io.observe(el));
   }
@@ -56,7 +56,6 @@
     openBtn.addEventListener('click', open);
     closeBtn.addEventListener('click', close);
     drawer.addEventListener('click', (e) => { if (e.target === drawer) close(); });
-    document.querySelectorAll('.drawer-link').forEach((l) => l.addEventListener('click', close));
   }
 
   // --- Lightbox (+ touch swipe left/right on mobile) ---
@@ -183,7 +182,7 @@
     document.getElementById('custom-confirm-no').onclick = () => { m.classList.add('hidden'); if (cb) cb(false); };
   };
 
-  // --- Unified Motion Engine: Inertial Smooth Scroll + Floating Stripes + Magnetic Nav ---
+  // --- Unified Motion Engine: Smooth Scroll + Anchor Navigation + Floating Stripes + Magnetic Nav ---
   function initMotionEngine() {
     const root = document.documentElement;
     const nav = document.getElementById('navbar');
@@ -202,28 +201,48 @@
       })
       .filter(Boolean);
 
-    // Smooth scroll state
     let currentY = window.scrollY;
     let targetY = window.scrollY;
-    let lastAppliedY = window.scrollY;
+    let wheelActive = false;
+    let anchorAnim = null;
 
     function getMaxScroll() {
       return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
     }
 
-    function smoothScrollTo(destY) {
-      const clamped = Math.max(0, Math.min(getMaxScroll(), destY));
-      if (prefersReduced) {
-        currentY = targetY = lastAppliedY = clamped;
-        window.scrollTo(0, clamped);
-      } else {
-        targetY = clamped;
-      }
+    function getSectionTargetY(targetEl) {
+      if (!targetEl) return 0;
+      const navOffset = nav ? nav.offsetHeight : 64;
+      const raw = targetEl.getBoundingClientRect().top + window.scrollY - navOffset;
+      return Math.max(0, Math.min(getMaxScroll(), raw));
     }
 
-    // Intercept mouse wheel for fluid inertial scrolling
+    function startAnchorScroll(targetEl) {
+      wheelActive = false;
+      const destY = getSectionTargetY(targetEl);
+      if (prefersReduced) {
+        anchorAnim = null;
+        currentY = targetY = destY;
+        window.scrollTo(0, destY);
+        return;
+      }
+      anchorAnim = {
+        targetEl: targetEl || null,
+        startY: window.scrollY,
+        startTime: performance.now(),
+        duration: 650
+      };
+    }
+
+    // Intercept mouse wheel for fluid inertial scrolling on desktop
     window.addEventListener('wheel', (e) => {
       if (prefersReduced || e.ctrlKey || document.body.style.overflow === 'hidden') return;
+      anchorAnim = null;
+      if (!wheelActive) {
+        currentY = window.scrollY;
+        targetY = window.scrollY;
+        wheelActive = true;
+      }
       let dy = e.deltaY;
       if (e.deltaMode === 1) dy *= 36;
       else if (e.deltaMode === 2) dy *= window.innerHeight * 0.85;
@@ -232,19 +251,27 @@
       e.preventDefault();
     }, { passive: false });
 
-    // Yield immediately to finger touch on mobile if an anchor glide was in progress
-    window.addEventListener('touchstart', () => {
-      currentY = window.scrollY;
-      targetY = window.scrollY;
-      lastAppliedY = window.scrollY;
+    // Cancel programmatic scroll only if user actually drags finger on screen (>12px)
+    let touchOriginY = 0;
+    window.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches.length) {
+        touchOriginY = e.touches[0].clientY;
+      }
+      wheelActive = false;
     }, { passive: true });
 
-    // Sync immediately when user drags scrollbar, uses touch, or presses keyboard scroll keys
-    window.addEventListener('scroll', () => {
-      if (Math.abs(window.scrollY - lastAppliedY) > 2) {
-        currentY = window.scrollY;
-        targetY = window.scrollY;
-        lastAppliedY = window.scrollY;
+    window.addEventListener('touchmove', (e) => {
+      if (!anchorAnim || !e.touches || !e.touches.length) return;
+      if (Math.abs(e.touches[0].clientY - touchOriginY) > 12) {
+        anchorAnim = null;
+      }
+    }, { passive: true });
+
+    window.addEventListener('keydown', (e) => {
+      const scrollKeys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
+      if (scrollKeys.indexOf(e.key) !== -1) {
+        anchorAnim = null;
+        wheelActive = false;
       }
     }, { passive: true });
 
@@ -254,7 +281,7 @@
       if (currentY > max) currentY = max;
     }, { passive: true });
 
-    // Smooth anchor jumps for all # links (adapts offset to mobile 64px vs desktop 80px navbar)
+    // Smooth anchor jumps for all # links (desktop nav, mobile drawer, hero buttons)
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
       anchor.addEventListener('click', (e) => {
         const href = anchor.getAttribute('href');
@@ -262,16 +289,14 @@
         if (href === '#') {
           e.preventDefault();
           closeMobileDrawer();
-          smoothScrollTo(0);
+          startAnchorScroll(null);
           return;
         }
         const targetEl = document.querySelector(href);
         if (targetEl) {
           e.preventDefault();
           closeMobileDrawer();
-          const navOffset = (nav ? nav.offsetHeight : 64) + 4;
-          const top = targetEl.getBoundingClientRect().top + window.scrollY - navOffset;
-          smoothScrollTo(top);
+          startAnchorScroll(targetEl);
         }
       });
     });
@@ -320,7 +345,8 @@
       const probe = scrollY + window.innerHeight * 0.38;
       let active = null;
       for (let i = 0; i < sections.length; i++) {
-        if (probe >= sections[i].el.offsetTop) {
+        const sTop = sections[i].el.getBoundingClientRect().top + scrollY;
+        if (probe >= sTop) {
           active = sections[i];
         }
       }
@@ -333,18 +359,34 @@
       const dt = Math.min(0.05, Math.max(0.001, (now - lastTime) / 1000));
       lastTime = now;
 
-      // 1. Inertial smooth page scroll
-      if (!prefersReduced) {
+      // 1a. Time-based eased anchor navigation (cannot be aborted by its own scroll events)
+      if (anchorAnim) {
+        const destY = getSectionTargetY(anchorAnim.targetEl);
+        const elapsed = now - anchorAnim.startTime;
+        const p = Math.min(1, Math.max(0, elapsed / anchorAnim.duration));
+        const ease = 1 - Math.pow(1 - p, 4);
+        const nextY = anchorAnim.startY + (destY - anchorAnim.startY) * ease;
+        window.scrollTo(0, nextY);
+        currentY = targetY = nextY;
+        if (p >= 1) {
+          window.scrollTo(0, destY);
+          currentY = targetY = destY;
+          anchorAnim = null;
+        }
+      } else if (wheelActive && !prefersReduced) {
+        // 1b. Inertial smooth wheel scroll
         const diff = targetY - currentY;
-        if (Math.abs(diff) > 0.35) {
+        if (Math.abs(diff) > 0.4) {
           currentY += diff * (1 - Math.exp(-8.5 * dt));
           window.scrollTo(0, currentY);
-          lastAppliedY = window.scrollY;
-        } else if (Math.abs(diff) > 0) {
+        } else {
           currentY = targetY;
-          window.scrollTo(0, currentY);
-          lastAppliedY = window.scrollY;
+          window.scrollTo(0, targetY);
+          wheelActive = false;
         }
+      } else {
+        // 1c. Native touch / scrollbar / keyboard scroll
+        currentY = targetY = window.scrollY;
       }
 
       const y = window.scrollY;

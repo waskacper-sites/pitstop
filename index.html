@@ -91,39 +91,45 @@
   <main>
     <!-- HERO -->
     <section class="hero">
-      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
-        <div class="max-w-3xl fade-up">
-          <div class="flex items-center gap-2.5 sm:gap-3 mb-5 sm:mb-6">
-            <img src="pole.gif" alt="" class="pole-gif">
-            <span class="text-[11px] sm:text-xs uppercase tracking-[0.2em] sm:tracking-[0.3em] text-neutral-200">Barber Shop • Brzesko</span>
+      <div aria-hidden="true"></div>
+
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 my-auto py-8">
+        <div class="max-w-2xl fade-up">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="w-7 h-px bg-white/70"></span>
+            <span class="text-[11px] sm:text-xs uppercase tracking-[0.25em] text-white/80">Pit Stop Barber Shop • Brzesko</span>
           </div>
-          <h1 class="font-display text-[2.85rem] sm:text-7xl lg:text-8xl font-bold leading-[0.98]">
-            Precyzja.<br>Styl.<br>Charakter.
+          <h1 class="font-display text-[2.6rem] sm:text-6xl lg:text-7xl font-bold !leading-[1.15]">
+            <span class="block">Dobre cięcie</span>
+            <span class="block mt-2 sm:mt-3">robi różnicę.</span>
           </h1>
-          <div class="mt-7 sm:mt-9 flex flex-col sm:flex-row gap-3">
+          <p class="mt-5 text-sm sm:text-base text-white/80 max-w-md">
+            Twój przystanek na świeże strzyżenie i zadbaną brodę.
+          </p>
+          <div class="mt-7 sm:mt-8 flex flex-col sm:flex-row gap-3">
             <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="btn-light px-8 py-3.5 text-sm text-center">Umów wizytę</a>
             <a href="#cennik" class="btn-ghost-light px-8 py-3.5 text-sm text-center">Cennik</a>
           </div>
         </div>
+      </div>
 
-        <div class="mt-10 sm:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 stagger-group">
-          <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="hero-tile p-3.5 sm:p-5 overflow-hidden block fade-up">
-            <div class="text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-300">Rezerwacja</div>
-            <div class="font-display text-xl sm:text-3xl lg:text-4xl font-bold mt-0.5 sm:mt-1">Booksy</div>
-          </a>
-          <a href="#about" class="hero-tile p-3.5 sm:p-5 overflow-hidden block fade-up">
-            <div class="text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-300">Adres</div>
-            <div class="font-display text-xl sm:text-3xl lg:text-4xl font-bold mt-0.5 sm:mt-1">Leśna 1</div>
-          </a>
-          <a href="#cennik" class="hero-tile p-3.5 sm:p-5 overflow-hidden block fade-up">
-            <div class="text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-300">Cennik</div>
-            <div class="font-display text-xl sm:text-3xl lg:text-4xl font-bold mt-0.5 sm:mt-1">od 50 zł</div>
-          </a>
-          <a href="#about" class="hero-tile p-3.5 sm:p-5 overflow-hidden block fade-up">
-            <div class="text-[10px] sm:text-[11px] uppercase tracking-widest text-neutral-300">Otwarte</div>
-            <div class="font-display text-xl sm:text-3xl lg:text-4xl font-bold mt-0.5 sm:mt-1">Wt – Sob</div>
-          </a>
-        </div>
+      <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 border-t border-white/25 grid grid-cols-2 lg:grid-cols-4 gap-y-5 gap-x-4 sm:gap-x-6 fade-up">
+        <a href="#about" class="group block min-w-0 lg:pr-4">
+          <div class="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-white/60">Lokalizacja</div>
+          <div class="font-display text-[13.5px] sm:text-lg lg:text-xl font-bold text-white whitespace-nowrap mt-1.5 group-hover:opacity-75 transition-opacity">Ul. Leśna 1, Brzesko</div>
+        </a>
+        <a href="#cennik" class="group block min-w-0 lg:border-l lg:border-white/20 lg:pl-6">
+          <div class="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-white/60">Zakres usług</div>
+          <div class="font-display text-[13.5px] sm:text-lg lg:text-xl font-bold text-white whitespace-nowrap mt-1.5 group-hover:opacity-75 transition-opacity">Włosy • Broda • Combo</div>
+        </a>
+        <a href="#about" class="group block min-w-0 lg:border-l lg:border-white/20 lg:pl-6">
+          <div class="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-white/60">Godziny pracy</div>
+          <div class="font-display text-[13.5px] sm:text-lg lg:text-xl font-bold text-white whitespace-nowrap mt-1.5 group-hover:opacity-75 transition-opacity">Wtorek – Sobota</div>
+        </a>
+        <a href="https://pitstopbarbershop360.booksy.com/k" target="_blank" rel="noopener noreferrer" class="group block min-w-0 lg:border-l lg:border-white/20 lg:pl-6">
+          <div class="text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-white/60">Zapisy online 24/7</div>
+          <div class="font-display text-[13.5px] sm:text-lg lg:text-xl font-bold text-white whitespace-nowrap mt-1.5 group-hover:opacity-75 transition-opacity">Rezerwacja Booksy →</div>
+        </a>
       </div>
     </section>
 
@@ -188,33 +194,28 @@
     <!-- PORTFOLIO -->
     <section id="portfolio" class="py-14 sm:py-20 border-t border-black">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="mb-7 sm:mb-10 flex items-end justify-between gap-4 fade-up">
-          <div>
-            <div class="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
-              <img src="pole.gif" alt="" class="pole-gif">
-              <span class="text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-neutral-500">Portfolio</span>
-            </div>
-            <h2 class="font-display text-3xl sm:text-5xl font-bold">Nasze cięcia.</h2>
+        <div class="mb-7 sm:mb-10 fade-up">
+          <div class="flex items-center gap-2.5 sm:gap-3 mb-3 sm:mb-4">
+            <img src="pole.gif" alt="" class="pole-gif">
+            <span class="text-xs uppercase tracking-[0.25em] sm:tracking-[0.3em] text-neutral-500">Portfolio</span>
           </div>
-          <span class="sm:hidden text-[11px] uppercase tracking-widest text-neutral-500 pb-1 flex items-center gap-1.5 shrink-0">
-            Przesuń <i class="fa-solid fa-arrow-right-long"></i>
-          </span>
+          <h2 class="font-display text-3xl sm:text-5xl font-bold">Nasze cięcia.</h2>
         </div>
 
-        <div class="portfolio-track flex sm:grid sm:grid-cols-3 gap-4 sm:gap-6 overflow-x-auto sm:overflow-visible snap-x snap-mandatory -mx-4 px-4 sm:mx-0 sm:px-0 pb-2 sm:pb-0 stagger-group">
-          <div class="cut-card w-[78vw] max-w-[300px] sm:w-auto sm:max-w-none shrink-0 snap-center aspect-[3/4] fade-up" data-index="0">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 stagger-group">
+          <div class="cut-card aspect-[4/4.3] sm:aspect-[3/4] fade-up" data-index="0">
             <img src="cut-1.png" alt="Low fade" class="w-full h-full object-cover">
             <div class="cut-caption absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/85 to-transparent text-white">
               <div class="font-display text-xl font-bold">Low fade</div>
             </div>
           </div>
-          <div class="cut-card w-[78vw] max-w-[300px] sm:w-auto sm:max-w-none shrink-0 snap-center aspect-[3/4] fade-up" data-index="1">
+          <div class="cut-card aspect-[4/4.3] sm:aspect-[3/4] fade-up" data-index="1">
             <img src="cut-2.jpg" alt="Modern mullet" class="w-full h-full object-cover">
             <div class="cut-caption absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/85 to-transparent text-white">
               <div class="font-display text-xl font-bold">Modern mullet</div>
             </div>
           </div>
-          <div class="cut-card w-[78vw] max-w-[300px] sm:w-auto sm:max-w-none shrink-0 snap-center aspect-[3/4] fade-up" data-index="2">
+          <div class="cut-card aspect-[4/4.3] sm:aspect-[3/4] fade-up" data-index="2">
             <img src="cut-3.png" alt="Naturalne loki" class="w-full h-full object-cover">
             <div class="cut-caption absolute inset-x-0 bottom-0 p-4 bg-gradient-to-t from-black/85 to-transparent text-white">
               <div class="font-display text-xl font-bold">Naturalne loki</div>
