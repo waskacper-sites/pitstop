@@ -2,6 +2,7 @@
   'use strict';
 
   const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const isDesktopPointer = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   // --- Scroll reveal (+ stagger cleanup so hover/tap transitions stay snappy) ---
   function initReveal() {
@@ -182,12 +183,12 @@
     document.getElementById('custom-confirm-no').onclick = () => { m.classList.add('hidden'); if (cb) cb(false); };
   };
 
-  // --- Unified Motion Engine: Smooth Scroll + Anchor Navigation + Floating Stripes + Magnetic Nav ---
+  // --- Unified Motion Engine (never mutates <html> style so Tailwind CDN Observer never spikes memory) ---
   function initMotionEngine() {
-    const root = document.documentElement;
     const nav = document.getElementById('navbar');
     const desktopNav = document.getElementById('desktop-nav');
     const magnet = document.getElementById('nav-magnet');
+    const stripeEls = Array.from(document.querySelectorAll('.pole-stripe'));
     const navLinks = desktopNav ? Array.from(desktopNav.querySelectorAll('.nav-link')) : [];
     const drawerLinks = Array.from(document.querySelectorAll('.drawer-link'));
 
@@ -205,6 +206,16 @@
     let targetY = window.scrollY;
     let wheelActive = false;
     let anchorAnim = null;
+    let rafRunning = false;
+    let lastTime = performance.now();
+
+    function wakeUp() {
+      if (!rafRunning) {
+        rafRunning = true;
+        lastTime = performance.now();
+        requestAnimationFrame(tick);
+      }
+    }
 
     function getMaxScroll() {
       return Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
@@ -232,6 +243,7 @@
         startTime: performance.now(),
         duration: 650
       };
+      wakeUp();
     }
 
     // Intercept mouse wheel for fluid inertial scrolling on desktop
@@ -249,6 +261,7 @@
 
       targetY = Math.max(0, Math.min(getMaxScroll(), targetY + dy));
       e.preventDefault();
+      wakeUp();
     }, { passive: false });
 
     // Cancel programmatic scroll only if user actually drags finger on screen (>12px)
@@ -267,11 +280,16 @@
       }
     }, { passive: true });
 
+    window.addEventListener('scroll', () => {
+      wakeUp();
+    }, { passive: true });
+
     window.addEventListener('keydown', (e) => {
       const scrollKeys = ['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', ' '];
       if (scrollKeys.indexOf(e.key) !== -1) {
         anchorAnim = null;
         wheelActive = false;
+        wakeUp();
       }
     }, { passive: true });
 
@@ -279,6 +297,7 @@
       const max = getMaxScroll();
       if (targetY > max) targetY = max;
       if (currentY > max) currentY = max;
+      wakeUp();
     }, { passive: true });
 
     // Smooth anchor jumps for all # links (desktop nav, mobile drawer, hero buttons)
@@ -321,12 +340,14 @@
       link.addEventListener('mouseenter', () => {
         hoveredLink = link;
         hoverPullX = 0;
+        wakeUp();
       });
       link.addEventListener('mousemove', (e) => {
         hoveredLink = link;
         const rect = link.getBoundingClientRect();
         const center = rect.left + rect.width * 0.5;
         hoverPullX = (e.clientX - center) * 0.22;
+        wakeUp();
       });
     });
 
@@ -334,6 +355,7 @@
       desktopNav.addEventListener('mouseleave', () => {
         hoveredLink = null;
         hoverPullX = 0;
+        wakeUp();
       });
     }
 
@@ -353,13 +375,11 @@
       return active;
     }
 
-    let lastTime = performance.now();
-
     function tick(now) {
       const dt = Math.min(0.05, Math.max(0.001, (now - lastTime) / 1000));
       lastTime = now;
 
-      // 1a. Time-based eased anchor navigation (cannot be aborted by its own scroll events)
+      // 1a. Time-based eased anchor navigation
       if (anchorAnim) {
         const destY = getSectionTargetY(anchorAnim.targetEl);
         const elapsed = now - anchorAnim.startTime;
@@ -397,19 +417,26 @@
         nav.classList.toggle('nav-solid', y >= 40);
       }
 
-      // 3. Slow, silky, floating horizontal barber stripes
+      // 3. Slow, silky, floating horizontal barber stripes (set on elements, NOT <html>)
+      const stripeDiff = y - stripeScrollY;
       if (!prefersReduced) {
-        stripeScrollY += (y - stripeScrollY) * (1 - Math.exp(-2.2 * dt));
-        ambientShift = (ambientShift + dt * 4.5) % (PERIOD_LG * PERIOD_SM);
+        stripeScrollY += stripeDiff * (1 - Math.exp(-2.2 * dt));
+        if (isDesktopPointer) {
+          ambientShift = (ambientShift + dt * 4.5) % (PERIOD_LG * PERIOD_SM);
+        }
 
         const rawLg = ambientShift + stripeScrollY * 0.085;
         const rawSm = ambientShift * 0.75 + stripeScrollY * 0.06;
 
-        const shiftLg = ((rawLg % PERIOD_LG) + PERIOD_LG) % PERIOD_LG;
-        const shiftSm = ((rawSm % PERIOD_SM) + PERIOD_SM) % PERIOD_SM;
+        const shiftLg = (((rawLg % PERIOD_LG) + PERIOD_LG) % PERIOD_LG).toFixed(2) + 'px';
+        const shiftSm = (((rawSm % PERIOD_SM) + PERIOD_SM) % PERIOD_SM).toFixed(2) + 'px';
 
-        root.style.setProperty('--stripe-shift', shiftLg.toFixed(2) + 'px');
-        root.style.setProperty('--stripe-shift-sm', shiftSm.toFixed(2) + 'px');
+        for (let i = 0; i < stripeEls.length; i++) {
+          stripeEls[i].style.setProperty('--stripe-shift', shiftLg);
+        }
+        if (magnet) {
+          magnet.style.setProperty('--stripe-shift-sm', shiftSm);
+        }
       }
 
       // 4. Active section tracking (desktop magnetic bar + mobile drawer indicator)
@@ -423,6 +450,7 @@
         });
       }
 
+      let magnetMoving = false;
       if (magnet && desktopNav && desktopNav.offsetParent !== null) {
         const scrollLink = activeSec ? activeSec.link : null;
         const activeLink = hoveredLink || scrollLink;
@@ -445,6 +473,9 @@
             magVw += ((goalW - magW) * stiffness - magVw * damping) * dt;
             magX += magVx * dt;
             magW += magVw * dt;
+            if (Math.abs(goalX - magX) > 0.2 || Math.abs(magVx) > 0.5) {
+              magnetMoving = true;
+            }
           }
 
           const stretch = 1 + Math.min(0.18, Math.abs(magVx) * 0.00025);
@@ -456,10 +487,16 @@
         }
       }
 
-      requestAnimationFrame(tick);
+      // On mobile, sleep the rAF loop as soon as scroll inertia & animations finish
+      const keepAlive = isDesktopPointer || Boolean(anchorAnim) || wheelActive || Math.abs(stripeDiff) > 0.3 || magnetMoving;
+      if (keepAlive) {
+        requestAnimationFrame(tick);
+      } else {
+        rafRunning = false;
+      }
     }
 
-    requestAnimationFrame(tick);
+    wakeUp();
   }
 
   document.addEventListener('DOMContentLoaded', () => {
